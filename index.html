@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<button class="test-ajax" type="button">Kliknij i zobacz w konsoli debugera</button>
+<ul class="user-list"></ul>
+<script type="text/javascript">
+const apiUrl = "https://jsonplaceholder.typicode.com";
+const $list = $('.user-list');
+
+$('.test-ajax').on('click', function() {
+    const $btn = $(this);
+
+
+
+    //wykonujemy połączenie
+    $.ajax({
+        url : apiUrl + '/users',
+        dataType : 'json'
+    })
+    .done((res) => {
+        //czyścimy listę przed dodaniem użytkowników
+        //inaczej ponowne kliknięcie duplikowało by użytkowników na liście
+        $list.empty();
+
+        //robimy pętlę po zwróconej tablicy
+        //dołączając do listy kolejne LI z imieniem i emailem użytkownika
+        res.forEach(el => {
+            $list.append(`<li>${el.address.geo.lat} : ${el.address.geo.lng}</li>`);
+        })
+    })
+    .always(() => {
+        //po zakończeniu wczytywania wyłączamy loading
+        //i włączamy przycisk
+        $btn.removeClass('loading');
+        $btn.prop('disabled', false);
+    });
+});
+
+
+</script>
+<div id="testAnim1" class="test-block">DIV</div>
+<script>
+$("#testAnim1").on('click', function(){ $(this).animate({ 
+width: "500px", 
+opacity: 0.4, 
+fontSize: "3em", 
+borderWidth: "10px" },
+ 1500); });
+</script>
+
+<div id="dupa" class="test-block">GET RECT SCRUB LOL L2P NOOB BACK TO RETAIL</div>
+<script>
+	$("#dupa").on('click', function(){ $(this).animate({ 
+		width: "10000px",  
+		fontSize: "6em", 
+		borderWidth: "10000px" },
+		4000); });
+</script>
+
+<button class="dupa2">duuuuuuuuuupa</button>
+<script type="text/javascript">
+$(".dupa2").on('click', function(){
+    $(this).animate({
+        width: "500px",
+        opacity: 0.4,
+        fontSize: "3em",
+        borderWidth: "10px"
+    }, 1500);
+});
+</script>
+
+
+<button class="dupa3">qwe</button>
+<script>
+$(".dupa3").on({ 
+'mouseover' : function() { $(this).stop().animate({width:300}, 500); }, 'mouseout' : function() { $(this).stop().animate({width:50}, 500); } }); 
+</script>
+
+
+<button class="dupa4">qwertyu</button>
+<script>
+$(".dupa4").on({ 
+'mouseover' : function() { $(this).stop().animate({width:100}, 500); }, 'mouseout' : function() { $(this).stop().animate({width:129}, 500); } }); 
+</script>
+
+<button class="dupa5">qwertyuqwertyui</button>
+<script>
+$(".dupa5").on({ 
+'mouseover' : function() { $(this).stop().animate({width:2}, 500); }, 'mouseout' : function() { $(this).stop().animate({width:300}, 500); } }); 
+</script>
+
+</body>
+</html>
